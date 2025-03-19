@@ -4,9 +4,9 @@ from .models import Product
 # Create your views here.
 
 def home(request):
-    return render(request,'fashion/home.html')
+    return render(request,'grocery/home.html')
 
 
 def product_detail(request):
     prod = Product.objects.all()
-    return render (request, 'fashion/product_detail.html' , {"prod":prod})
+    return render (request, 'grocery/product_detail.html' , {"prod":prod})

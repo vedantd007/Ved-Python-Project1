@@ -1,0 +1,7 @@
+{% for item in fashion_list %}
+        <div class="fashion-item">
+            <div class="fashion-name">{{ item.name }}</div>
+            <div class="fashion-price">${{ item.price }}</div>
+            <div class="fashion-description">{{ item.description }}</div>
+        </div>
+        {% endfor %}

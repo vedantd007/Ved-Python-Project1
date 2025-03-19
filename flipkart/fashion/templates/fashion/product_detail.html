@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fashion Products</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+            margin: 0;
+            padding: 0;
+        }
+        .fashion-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+        }
+        .fashion-item {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            width: 250px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        .fashion-item:hover {
+            transform: scale(1.05);
+        }
+        .fashion-name {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .fashion-price {
+            color: #e44d26;
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .fashion-description {
+            font-size: 14px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="fashion-container">
+        {% for item in fashion_list %}
+        <div class="fashion-item">
+            <div class="fashion-name">{{ item.name }}</div>
+            <div class="fashion-price">${{ item.price }}</div>
+            <div class="fashion-description">{{ item.description }}</div>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
