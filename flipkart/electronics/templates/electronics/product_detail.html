@@ -3,108 +3,230 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Electronics Products</title>
+    <title>Electronics Store</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        /* Global Styles */
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f8f8f8;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
             margin: 0;
             padding: 20px;
+            display: flex;
+            justify-content: center;
         }
         .container {
             max-width: 1200px;
-            margin: 0 auto;
+            width: 100%;
             padding: 20px;
+            text-align: center;
         }
+
+        /* Glowing Header */
         .header {
-            text-align: center;
-            font-size: 24px;
+            font-size: 36px;
             font-weight: bold;
-            margin-bottom: 20px;
+            color: #fff;
+            text-shadow: 0 0 10px #00eaff, 0 0 20px #00eaff, 0 0 30px #00eaff;
+            margin-bottom: 30px;
         }
+
+        /* Glassmorphism Form */
         .form-container {
-            text-align: center;
-            margin-bottom: 20px;
-            background: white;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(12px);
             padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
             max-width: 400px;
-            margin-left: auto;
-            margin-right: auto;
+            margin: 0 auto 30px;
         }
         .form-container input[type="submit"] {
-            background-color: #27ae60;
+            background: linear-gradient(45deg, #ff0099, #493240);
             color: white;
             border: none;
-            padding: 10px 15px;
+            padding: 12px 18px;
             border-radius: 5px;
             cursor: pointer;
             font-size: 16px;
+            font-weight: bold;
+            transition: 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 0, 153, 0.4);
         }
         .form-container input[type="submit"]:hover {
-            background-color: #219150;
+            transform: scale(1.05);
+            box-shadow: 0 4px 25px rgba(255, 0, 153, 0.6);
         }
+
+        /* Product Grid */
         .electronics-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 20px;
-            justify-content: center;
         }
+
+        /* 3D Flip Card */
         .electronics-item {
-            background: white;
+            perspective: 1000px;
+            cursor: pointer;
+        }
+        .electronics-card {
+            width: 100%;
+            height: 280px;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.5s;
+        }
+        .electronics-item:hover .electronics-card {
+            transform: rotateY(180deg);
+        }
+        .electronics-front,
+        .electronics-back {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            backface-visibility: hidden;
             border-radius: 12px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            padding: 20px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        .electronics-front {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(8px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            font-weight: bold;
+        }
+        .electronics-back {
+            background: rgba(20, 20, 20, 0.8);
+            color: white;
+            transform: rotateY(180deg);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
             text-align: center;
-            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-            animation: fadeIn 0.5s ease-in-out;
         }
-        .electronics-item:hover {
-            transform: scale(1.05);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+
+        /* Product Image */
+        .electronics-img {
+            width: 100%;
+            max-height: 140px;
+            object-fit: contain;
+            border-radius: 8px;
+            margin-bottom: 10px;
         }
+
+        /* Product Details */
         .electronics-name {
             font-size: 22px;
             font-weight: bold;
-            color: #333;
-            margin-bottom: 10px;
+            color: #fff;
+            margin-bottom: 6px;
         }
         .electronics-price {
             font-size: 20px;
-            color: #27ae60;
+            color: #ff0099;
             font-weight: bold;
-            margin-bottom: 10px;
+            margin-bottom: 6px;
         }
-        .electronics-description {
+
+        /* Neon Add-to-Cart Button */
+        .add-to-cart {
+            background: linear-gradient(45deg, #27ae60, #2ecc71);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 6px;
+            cursor: pointer;
             font-size: 14px;
-            color: #666;
+            font-weight: bold;
+            transition: 0.3s ease;
+            box-shadow: 0 0 10px rgba(39, 174, 96, 0.7);
         }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+        .add-to-cart:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(39, 174, 96, 1);
+        }
+
+        /* Floating Cart Button */
+        .cart-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: linear-gradient(45deg, #ff6b6b, #ff4757);
+            color: white;
+            padding: 14px 18px;
+            border-radius: 50%;
+            box-shadow: 0 0 20px rgba(255, 71, 87, 0.8);
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .cart-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 30px rgba(255, 71, 87, 1);
+        }
+
+        @media (max-width: 768px) {
+            .electronics-container {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+            .header {
+                font-size: 26px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="header">Electronics Products</div>
-        <div class="form-container">
-            <form method="post">
+        <header class="header">🚀 Electronics Store 🚀</header>
+        
+        <!-- Form -->
+        <section class="form-container">
+            <form method="post" enctype = "multipart/form-data">
                 {% csrf_token %}
                 {{ form.as_p }}
                 <input type="submit" value="Add to Cart">
             </form>
-        </div>
-        <div class="electronics-container">
+        </section>
+
+        <!-- Product Cards -->
+        <section class="electronics-container">
             {% for pro in prod %}
-            <div class="electronics-item">
-                <div class="electronics-name">{{ pro.name }}</div>
-                <div class="electronics-price">₹{{ pro.price }}</div>
-                <div class="electronics-description">{{ pro.description }}</div>
-            </div>
-            {% endfor %}
-        </div>
+            <article class="electronics-item">
+                <div class="electronics-card">
+                    <div class="electronics-front">
+                        {% if pro.image %}
+                            <img src="{{ pro.image.url }}" alt="{{ pro.name }}" class="electronics-img">
+                        {% endif %}
+                        <div class="electronics-name">{{ pro.name }}</div>
+                        <div class="electronics-description">{{ pro.description }}</div>
+                    </div>
+                    <div class="electronics-back">
+                        <div class="electronics-price">₹{{ pro.price }}</div>
+                    
+                    
+
+                        <!-- {% if pro.image %}
+                        <img src="{{ pro.image.url }}" alt="{{ pro.name }}">
+                        {% endif %}
+                         -->
+
+                        <button class="add-to-cart">🛒 Add to Cart</button>
+                        <a href = "{% url 'update_product' pro.id %}"> <button type = "button">Update</button1></a>
+                        <a href = "{% url 'delete_product' pro.id %}"> <button type = "button">Delete</button1></a>
+                    </div>
+                </div>
+            </article>
+            {% endfor %}x
+        </section>
     </div>
+
+    <!-- Floating Cart Button -->
+    <button class="cart-btn">🛒</button>
 </body>
 </html>

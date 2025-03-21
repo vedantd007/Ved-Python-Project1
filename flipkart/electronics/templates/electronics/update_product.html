@@ -1,0 +1,9 @@
+<!--update_product.html -->
+
+<h2>Update Product </h2>
+<form method = "POST" enctype = "multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }} <!-- Render the form fields-->
+
+    <button type = "submit">Save Changes</button>
+</form>
